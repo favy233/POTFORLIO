@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+.general-header{
+  backdrop-filter: blur(20px);
+  box-shadow: 2px 1px 10px 3px rgb(38, 63, 249);
+}
+
+body{
+  overflow-x: hidden !important;
+  height: 100vh !important;
+}
