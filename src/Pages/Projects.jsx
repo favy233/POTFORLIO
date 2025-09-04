@@ -1,8 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { motion } from "framer-motion";
 import { FaGithub, FaExternalLinkAlt, FaServer } from "react-icons/fa";
-
-// Import project images
 import Project1 from "../assets/Project1.png";
 import Project2 from "../assets/Project2.png";
 import Project3 from "../assets/Project3.png";
