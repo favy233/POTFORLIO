@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion'; // <<<--- ADDED AnimatePresence here
-import { FaPaperPlane, FaUser, FaEnvelope, FaTag } from 'react-icons/fa'; // Icons for the form
-import { FaCommentDots } from 'react-icons/fa'; // Icon for comments
+import { motion, AnimatePresence } from 'framer-motion';
+import { FaPaperPlane, FaUser, FaEnvelope, FaTag } from 'react-icons/fa';
+import { FaCommentDots } from 'react-icons/fa';
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({
@@ -11,14 +11,40 @@ const ContactPage = () => {
     message: '',
   });
 
-  const [comments, setComments] = useState([
-    { id: 1, author: 'Alice', text: 'Great portfolio! Love your work.', timestamp: '2 days ago' },
-    { id: 2, author: 'Bob', text: 'Very inspiring projects.', timestamp: '1 day ago' },
-    { id: 3, author: 'Charlie', text: 'Fantastic use of animations!', timestamp: '5 hours ago' },
-  ]);
+  // Load comments from localStorage or use defaults
+  const [comments, setComments] = useState(() => {
+    const savedComments = localStorage.getItem('portfolioComments');
+    return savedComments
+      ? JSON.parse(savedComments)
+      : [
+          {
+            id: 1,
+            author: 'Alice',
+            text: 'Great portfolio! Love your work.',
+            timestamp: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(), // 2 days ago
+          },
+          {
+            id: 2,
+            author: 'Bob',
+            text: 'Very inspiring projects.',
+            timestamp: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(), // 1 day ago
+          },
+          {
+            id: 3,
+            author: 'Charlie',
+            text: 'Fantastic use of animations!',
+            timestamp: new Date(Date.now() - 5 * 60 * 60 * 1000).toISOString(), // 5 hours ago
+          },
+        ];
+  });
 
   const [newComment, setNewComment] = useState('');
-  const [commentAuthor, setCommentAuthor] = useState(''); // For new comment author
+  const [commentAuthor, setCommentAuthor] = useState('');
+
+  // Save comments to localStorage
+  useEffect(() => {
+    localStorage.setItem('portfolioComments', JSON.stringify(comments));
+  }, [comments]);
 
   const handleFormChange = (e) => {
     const { name, value } = e.target;
@@ -27,23 +53,36 @@ const ContactPage = () => {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    // In a real application, you would send formData to a backend service here
+
+    // Save form messages to localStorage
+    const savedMessages =
+      JSON.parse(localStorage.getItem('portfolioMessages')) || [];
+    localStorage.setItem(
+      'portfolioMessages',
+      JSON.stringify([...savedMessages, formData])
+    );
+
     console.log('Contact Form Submitted:', formData);
     alert('Thank you for your message! I will get back to you soon.');
-    setFormData({ name: '', email: '', subject: '', message: '' }); // Clear form
+    setFormData({ name: '', email: '', subject: '', message: '' });
   };
 
   const handleCommentSubmit = (e) => {
     e.preventDefault();
     if (newComment.trim() && commentAuthor.trim()) {
-      const newId = comments.length > 0 ? Math.max(...comments.map(c => c.id)) + 1 : 1;
+      const newId =
+        comments.length > 0
+          ? Math.max(...comments.map((c) => c.id)) + 1
+          : 1;
+      const now = new Date();
+
       const newCommentObj = {
         id: newId,
         author: commentAuthor.trim(),
         text: newComment.trim(),
-        timestamp: 'Just now', // For demo purposes
+        timestamp: now.toISOString(), // save ISO string only
       };
-      // Add new comment to the top and animate
+
       setComments((prevComments) => [newCommentObj, ...prevComments]);
       setNewComment('');
       setCommentAuthor('');
@@ -52,14 +91,34 @@ const ContactPage = () => {
     }
   };
 
+  // Helper function: format "time ago"
+  const formatTimeDifference = (commentDate) => {
+    const now = new Date();
+    const diffInSeconds = Math.floor((now - commentDate) / 1000);
+
+    if (diffInSeconds < 60) return 'Just now';
+    if (diffInSeconds < 3600)
+      return `${Math.floor(diffInSeconds / 60)} minutes ago`;
+    if (diffInSeconds < 86400)
+      return `${Math.floor(diffInSeconds / 3600)} hours ago`;
+    return `${Math.floor(diffInSeconds / 86400)} days ago`;
+  };
+
   // Animation variants for comments
   const commentVariants = {
     hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, ease: 'easeOut' },
+    },
   };
 
   return (
-    <section id="contact-section" className="bg-gray-900 py-16 md:py-24 text-white">
+    <section
+      id="contact-section"
+      className="bg-gray-900 py-16 md:py-24 text-white"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.h2
           className="text-4xl sm:text-5xl font-extrabold text-center mb-6 md:mb-12 leading-tight bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-600"
@@ -78,11 +137,12 @@ const ContactPage = () => {
           transition={{ duration: 0.7, delay: 0.2 }}
           viewport={{ once: true, amount: 0.5 }}
         >
-          Have a question, a project idea, or just want to say hello? Fill out the form below or leave a public comment! I'd love to hear from you.
+          Have a question, a project idea, or just want to say hello? Fill out
+          the form below or leave a public comment! I'd love to hear from you.
         </motion.p>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* Contact Form Section */}
+          {/* Contact Form */}
           <motion.div
             className="bg-gray-800 p-8 rounded-xl shadow-lg border border-gray-700"
             initial={{ opacity: 0, x: -50 }}
@@ -90,10 +150,15 @@ const ContactPage = () => {
             transition={{ duration: 0.8, delay: 0.3 }}
             viewport={{ once: true, amount: 0.3 }}
           >
-            <h3 className="text-3xl font-semibold mb-6 text-blue-300">Send a Message</h3>
+            <h3 className="text-3xl font-semibold mb-6 text-blue-300">
+              Send a Message
+            </h3>
             <form onSubmit={handleFormSubmit} className="space-y-6">
               <div>
-                <label htmlFor="name" className="block text-gray-300 text-sm font-bold mb-2">
+                <label
+                  htmlFor="name"
+                  className="block text-gray-300 text-sm font-bold mb-2"
+                >
                   <FaUser className="inline-block mr-2 text-purple-400" /> Name
                 </label>
                 <input
@@ -107,8 +172,12 @@ const ContactPage = () => {
                 />
               </div>
               <div>
-                <label htmlFor="email" className="block text-gray-300 text-sm font-bold mb-2">
-                  <FaEnvelope className="inline-block mr-2 text-purple-400" /> Email
+                <label
+                  htmlFor="email"
+                  className="block text-gray-300 text-sm font-bold mb-2"
+                >
+                  <FaEnvelope className="inline-block mr-2 text-purple-400" />{' '}
+                  Email
                 </label>
                 <input
                   type="email"
@@ -121,8 +190,12 @@ const ContactPage = () => {
                 />
               </div>
               <div>
-                <label htmlFor="subject" className="block text-gray-300 text-sm font-bold mb-2">
-                  <FaTag className="inline-block mr-2 text-purple-400" /> Subject
+                <label
+                  htmlFor="subject"
+                  className="block text-gray-300 text-sm font-bold mb-2"
+                >
+                  <FaTag className="inline-block mr-2 text-purple-400" />{' '}
+                  Subject
                 </label>
                 <input
                   type="text"
@@ -134,8 +207,12 @@ const ContactPage = () => {
                 />
               </div>
               <div>
-                <label htmlFor="message" className="block text-gray-300 text-sm font-bold mb-2">
-                  <FaPaperPlane className="inline-block mr-2 text-purple-400" /> Message
+                <label
+                  htmlFor="message"
+                  className="block text-gray-300 text-sm font-bold mb-2"
+                >
+                  <FaPaperPlane className="inline-block mr-2 text-purple-400" />{' '}
+                  Message
                 </label>
                 <textarea
                   id="message"
@@ -158,7 +235,7 @@ const ContactPage = () => {
             </form>
           </motion.div>
 
-          {/* Animated Comment Section */}
+          {/* Public Comments */}
           <motion.div
             className="bg-gray-800 p-8 rounded-xl shadow-lg border border-gray-700 flex flex-col"
             initial={{ opacity: 0, x: 50 }}
@@ -166,7 +243,9 @@ const ContactPage = () => {
             transition={{ duration: 0.8, delay: 0.3 }}
             viewport={{ once: true, amount: 0.3 }}
           >
-            <h3 className="text-3xl font-semibold mb-6 text-blue-300">Public Comments <FaCommentDots className="inline-block ml-2" /></h3>
+            <h3 className="text-3xl font-semibold mb-6 text-blue-300">
+              Public Comments <FaCommentDots className="inline-block ml-2" />
+            </h3>
 
             {/* Comment List */}
             <div className="flex-1 overflow-y-auto pr-2 custom-scrollbar">
@@ -182,15 +261,25 @@ const ContactPage = () => {
                     layout
                   >
                     <p className="text-gray-200 mb-1">{comment.text}</p>
-                    <p className="text-sm text-gray-400">- {comment.author} <span className="ml-2 text-xs italic">{comment.timestamp}</span></p>
+                    <p className="text-sm text-gray-400">
+                      - {comment.author}{' '}
+                      <span className="ml-2 text-xs italic">
+                        {formatTimeDifference(new Date(comment.timestamp))}
+                      </span>
+                    </p>
                   </motion.div>
                 ))}
               </AnimatePresence>
             </div>
 
-            {/* Add Comment Form */}
-            <form onSubmit={handleCommentSubmit} className="mt-8 pt-6 border-t border-gray-700">
-              <h4 className="text-xl font-semibold mb-4 text-blue-300">Leave a Comment</h4>
+            {/* Add Comment */}
+            <form
+              onSubmit={handleCommentSubmit}
+              className="mt-8 pt-6 border-t border-gray-700"
+            >
+              <h4 className="text-xl font-semibold mb-4 text-blue-300">
+                Leave a Comment
+              </h4>
               <div className="mb-4">
                 <input
                   type="text"

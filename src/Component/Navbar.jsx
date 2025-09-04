@@ -21,28 +21,56 @@ const Navbar = () => {
     setIsNavOpen(false);
   };
 
-  return (
-    <nav className="p-4 flex justify-between items-center lg:w-[70%] lg:ml-[14%] bg-white/10 backdrop-blur-md shadow-lg sticky top-5 z-30 rounded-full general-header">
-      <div className="lg:text-3xl text-xl font-bold text-blue-400 pl-10">Favy</div>
+  // Animation variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.15 } // stagger for logo + nav items
+    }
+  };
 
-      {/* Desktop Navigation */}
-      <ul className="hidden md:flex space-x-6 items-center pr-6">
+  const logoVariant = {
+    hidden: { opacity: 0, x: -40 },
+    visible: { opacity: 1, x: 0, transition: { type: 'spring', stiffness: 80 } }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: -20 },
+    visible: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 80 } }
+  };
+
+  return (
+    <motion.nav
+      className="p-4 flex justify-between items-center lg:w-[70%] lg:ml-[14%] bg-white/10 backdrop-blur-md shadow-lg sticky top-5 z-30 rounded-full general-header"
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+    >
+      {/* Logo with animation */}
+      <motion.div
+        className="lg:text-3xl text-xl font-bold text-blue-400 pl-10"
+        variants={logoVariant}
+      >
+        Favy
+      </motion.div>
+
+      {/* Desktop Navigation with Animation */}
+      <motion.ul
+        className="hidden md:flex space-x-6 items-center pr-6"
+        variants={containerVariants}
+      >
         {navItems.map((item) => (
-          <li key={item.sectionId}>
+          <motion.li key={item.sectionId} variants={itemVariants}>
             <button
               onClick={() => handleNavLinkClick(item.sectionId)}
               className="hover:text-blue-400 text-white transition-colors duration-300"
             >
               {item.name}
             </button>
-          </li>
+          </motion.li>
         ))}
-        <li>
-          {/* <button className="px-4 py-2 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition-all duration-300 transform hover:scale-105">
-            Contact Me
-          </button> */}
-        </li>
-      </ul>
+      </motion.ul>
 
       {/* Mobile Toggle Icon */}
       <div className="md:hidden pr-4">
@@ -55,7 +83,7 @@ const Navbar = () => {
         </button>
       </div>
 
-      {/* Mobile Navigation */}
+      {/* Mobile Navigation with Slide-in */}
       <AnimatePresence>
         {isNavOpen && (
           <motion.div
@@ -72,23 +100,27 @@ const Navbar = () => {
             >
               <FaTimes />
             </button>
-            <ul className="flex flex-col space-y-6 text-center">
+            <motion.ul
+              className="flex flex-col space-y-6 text-center"
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+            >
               {navItems.map((item) => (
-                <li key={item.sectionId}>
+                <motion.li key={item.sectionId} variants={itemVariants}>
                   <button
                     onClick={() => handleNavLinkClick(item.sectionId)}
                     className="text-3xl font-bold hover:text-blue-400 text-white transition-colors duration-300"
                   >
                     {item.name}
                   </button>
-                </li>
+                </motion.li>
               ))}
-          
-            </ul>
+            </motion.ul>
           </motion.div>
         )}
       </AnimatePresence>
-    </nav>
+    </motion.nav>
   );
 };
 

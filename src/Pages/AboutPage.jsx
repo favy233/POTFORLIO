@@ -1,128 +1,159 @@
-import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { FaGraduationCap, FaCode, FaLaptopCode, FaChevronDown, FaChevronUp } from 'react-icons/fa'; // Added Chevron icons
+import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import {
+  FaGraduationCap,
+  FaCode,
+  FaLaptopCode,
+  FaChevronDown,
+  FaChevronUp,
+} from "react-icons/fa";
 
 function AboutPage() {
-  const [showFullText, setShowFullText] = useState(false); // New state for "Read More"
+  const [showFullText, setShowFullText] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     setIsVisible(true);
   }, []);
 
-  // Animation variants for sections
   const sectionVariants = {
     hidden: { opacity: 0, y: 50 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } },
   };
 
-  // Animation variants for individual text elements
   const textVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: (i) => ({
       opacity: 1,
       y: 0,
-      transition: {
-        delay: i * 0.2,
-        duration: 0.7,
-        ease: "easeOut",
-      },
+      transition: { delay: i * 0.15, duration: 0.6, ease: "easeOut" },
     }),
   };
 
-  // Variants for expanding/collapsing text
   const expandedTextVariants = {
-    collapsed: { opacity: 0, height: 0, overflow: 'hidden' },
-    expanded: { opacity: 1, height: 'auto', transition: { duration: 0.5, ease: "easeOut" } },
+    collapsed: { opacity: 0, height: 0, overflow: "hidden" },
+    expanded: { opacity: 1, height: "auto", transition: { duration: 0.5, ease: "easeOut" } },
   };
 
   return (
     <section
-      id="about-section" // Important for Navbar scrolling
-      className={`bg-gray-900 py-16 md:py-24 text-white min-h-screen flex items-center justify-center transition-opacity duration-1000 ${
-        isVisible ? 'opacity-100' : 'opacity-0'
+      id="about-section"
+      className={`bg-gray-900 py-20 text-white min-h-screen flex items-center transition-opacity duration-1000 ${
+        isVisible ? "opacity-100" : "opacity-0"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center justify-between gap-12">
-        {/* Left Section - Text Content */}
+      <div className="max-w-7xl mx-auto px-6 lg:px-12 flex flex-col lg:flex-row items-center gap-16">
+        {/* LEFT TEXT CONTENT */}
         <motion.div
-          className="text-center lg:text-left max-w-2xl flex-1"
+          className="max-w-2xl flex-1"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.4 }}
           variants={sectionVariants}
         >
           <motion.h2
-            className="text-4xl lg:text-5xl font-extrabold mb-6 leading-tight bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-600"
-            variants={textVariants} custom={0}
+            className="text-4xl md:text-5xl font-extrabold mb-6 leading-tight bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-600"
+            variants={textVariants}
+            custom={0}
           >
-            About <span className="text-white">Me</span>
+            About Me
           </motion.h2>
 
-          <motion.p
-            className="text-gray-300 text-lg mb-4"
-            variants={textVariants} custom={1}
-          >
-            Hi, I'm <strong className="text-blue-300">Silas Favour Chinelo</strong>, a passionate <strong className="text-green-300">Web Developer</strong> with a keen eye for both aesthetics and functionality. My journey in development began with a solid foundation in modern **design principles** and **user experience**, always aiming to build engaging digital products.
+          <motion.p className="text-gray-300 text-lg mb-4" variants={textVariants} custom={1}>
+            Hi, I’m{" "}
+            <strong className="text-blue-300">Silas Favour Chinelo</strong>, a
+            passionate <strong className="text-green-300">Web Developer</strong>{" "}
+            dedicated to creating impactful and visually engaging Web 
+            Application.
           </motion.p>
 
-          <motion.p
-            className="text-gray-300 text-lg mb-6"
-            variants={textVariants} custom={2}
-          >
-            I specialize in crafting <strong className="text-purple-300">responsive and interactive web applications</strong>, prioritizing **clean, maintainable code** and seamless user interfaces. I continuously immerse myself in new technologies and industry best practices to deliver high-quality, scalable, and performant solutions.
+          <motion.p className="text-gray-300 text-lg mb-6" variants={textVariants} custom={2}>
+            I specialize in building{" "}
+            <strong className="text-purple-300">
+              responsive, scalable, and interactive applications
+            </strong>{" "}
+            with a focus on clean code, seamless user experiences, and modern
+            design principles.
           </motion.p>
 
-          {/* Additional text that expands/collapses */}
+          {/* EXPANDABLE SECTION */}
           <motion.div
             variants={expandedTextVariants}
             initial="collapsed"
             animate={showFullText ? "expanded" : "collapsed"}
           >
             <p className="text-gray-300 text-lg mb-4">
-              Beyond coding, I'm a strong advocate for **continuous learning** and **community collaboration**. I believe in sharing knowledge and constantly evolving my skill set to tackle new challenges and contribute to innovative projects. My goal is to create web experiences that are not just visually appealing, but also deeply intuitive and impactful for users.
+              I strongly believe in{" "}
+              <strong className="text-blue-300">continuous learning</strong> and{" "}
+              <strong className="text-purple-300">collaboration</strong>. Beyond
+              coding, I actively contribute to communities, share insights, and
+              embrace challenges that push me to grow as a developer.
             </p>
             <p className="text-gray-300 text-lg mb-6">
-              My expertise spans across front-end development with modern JavaScript frameworks like **React**, robust styling with **Tailwind CSS**, and integrating with various backend technologies including **Firebase** for full-stack capabilities. I'm always eager to learn new tools and methodologies to improve my craft.
+              My expertise includes{" "}
+              <span className="text-green-300">React</span>,{" "}
+              <span className="text-pink-300">Tailwind CSS</span>, and{" "}
+              <span className="text-yellow-300">Firebase</span>. I aim to
+              deliver not just functional solutions, but web application that inspire
+              confidence and delight users.
             </p>
           </motion.div>
 
+          {/* READ MORE BUTTON */}
           <motion.div variants={textVariants} custom={3}>
             <motion.button
               onClick={() => setShowFullText(!showFullText)}
-              className="px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-700 text-white rounded-lg shadow-lg hover:from-blue-700 hover:to-purple-800 transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-2 mx-auto lg:mx-0"
-              whileHover={{ scale: 1.02 }} // Framer Motion hover effect
-              whileTap={{ scale: 0.98 }} // Framer Motion tap effect
+              className="px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-700 text-white rounded-lg shadow-lg hover:from-blue-700 hover:to-purple-800 transition-all duration-300 flex items-center gap-2"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.97 }}
             >
               {showFullText ? (
-                <>Read Less <FaChevronUp className="ml-2" /></>
+                <>
+                  Read Less <FaChevronUp />
+                </>
               ) : (
-                <>Read More <FaChevronDown className="ml-2" /></>
+                <>
+                  Read More <FaChevronDown />
+                </>
               )}
             </motion.button>
           </motion.div>
         </motion.div>
 
-        {/* Right Section - Image with Overlays */}
+        {/* RIGHT IMAGE CONTENT */}
         <motion.div
-          className="relative w-full max-w-md lg:max-w-xl flex-1 flex justify-center items-center"
-          initial={{ opacity: 0, scale: 0.8 }}
+          className="relative w-full max-w-md lg:max-w-lg flex-1"
+          initial={{ opacity: 0, scale: 0.9 }}
           whileInView={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, delay: 0.4, type: "spring", stiffness: 100 }}
+          transition={{ duration: 0.8, delay: 0.3, type: "spring", stiffness: 90 }}
           viewport={{ once: true, amount: 0.3 }}
         >
-          <img
-            src="/images/about-illustration.png" // REPLACE WITH YOUR ACTUAL ABOUT PAGE ILLUSTRATION
-            alt="Silas Favour Chinelo - Web Developer"
-            className="w-full h-auto object-contain rounded-xl shadow-2xl border-4 border-gray-700 transform transition-transform duration-500 hover:scale-105"
-            onError={(e) => { e.target.onerror = null; e.target.src = '/my_self-removebg-preview.png'; }}
-          />
-          {/* Decorative icons/overlays */}
-          <div className="absolute -top-6 -left-6 bg-purple-600 p-3 rounded-full shadow-xl animate-bounce-slow">
-            <FaGraduationCap className="text-white text-3xl" />
-          </div>
-          <div className="absolute -bottom-6 -right-6 bg-blue-600 p-3 rounded-full shadow-xl animate-spin-slow">
-            <FaCode className="text-white text-3xl" />
+          <div className="relative">
+            <img
+              src="/src/assets/my_self-removebg-preview.png"
+              alt="Silas Favour Chinelo - Web Developer"
+              className="w-full h-auto rounded-2xl shadow-xl border border-gray-700 transform transition-transform duration-500 hover:scale-105"
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = "/my_self-removebg-preview.png";
+              }}
+            />
+
+            {/* ICON BADGES */}
+            <motion.div
+              className="absolute -top-6 -left-6 bg-purple-600 p-3 rounded-full shadow-lg"
+              animate={{ y: [0, -8, 0] }}
+              transition={{ repeat: Infinity, duration: 3 }}
+            >
+              <FaGraduationCap className="text-white text-2xl" />
+            </motion.div>
+            <motion.div
+              className="absolute -bottom-6 -right-6 bg-blue-600 p-3 rounded-full shadow-lg"
+              animate={{ rotate: [0, 15, -15, 0] }}
+              transition={{ repeat: Infinity, duration: 4 }}
+            >
+              <FaCode className="text-white text-2xl" />
+            </motion.div>
           </div>
         </motion.div>
       </div>

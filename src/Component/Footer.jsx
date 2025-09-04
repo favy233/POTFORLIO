@@ -15,7 +15,7 @@ const Footer = () => {
 
   return (
     <motion.footer
-      className="bg-gray-950 text-gray-400 py-10 md:py-12" // Slightly darker background for the footer
+      className="bg-gray-950 text-gray-400 py-10 md:py-12" 
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.3 }}
@@ -25,7 +25,7 @@ const Footer = () => {
         {/* Logo/Name Reinforcement */}
         <motion.div variants={footerVariants} className="mb-6">
           <a href="#home-section" className="text-3xl font-extrabold text-white hover:text-blue-400 transition-colors duration-300">
-            YourName<span className="text-purple-500">.dev</span> {/* Replace YourName */}
+            Chinelo<span className="text-purple-500">.dev</span> {/* Replace YourName */}
           </a>
           <p className="text-sm mt-2 text-gray-500">Crafting digital experiences with passion.</p> {/* Optional tagline */}
         </motion.div>
@@ -53,7 +53,7 @@ const Footer = () => {
         <motion.div variants={footerVariants} className="mb-6">
           <div className="flex justify-center space-x-6">
             <a
-              href="https://github.com/yourusername" // Replace with your GitHub URL
+              href="https://github.com/yourusername"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-400 hover:text-white transition-colors duration-300 transform hover:scale-110"
@@ -62,7 +62,7 @@ const Footer = () => {
               <FaGithub className="text-3xl" />
             </a>
             <a
-              href="https://linkedin.com/in/yourprofile" // Replace with your LinkedIn URL
+              href="https://linkedin.com/in/yourprofile" 
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-400 hover:text-blue-500 transition-colors duration-300 transform hover:scale-110"
@@ -71,7 +71,7 @@ const Footer = () => {
               <FaLinkedin className="text-3xl" />
             </a>
             <a
-              href="https://twitter.com/yourusername" // Replace with your Twitter URL
+              href="https://twitter.com/yourusername"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-400 hover:text-blue-400 transition-colors duration-300 transform hover:scale-110"
@@ -80,13 +80,14 @@ const Footer = () => {
               <FaTwitter className="text-3xl" />
             </a>
             <a
-              href="mailto:youremail@example.com" // Replace with your Email
+              href="silasfavour6691@gmail.com"
+
               className="text-gray-400 hover:text-red-400 transition-colors duration-300 transform hover:scale-110"
               aria-label="Send me an Email"
             >
               <FaEnvelope className="text-3xl" />
             </a>
-            {/* Add more social links as needed */}
+            
           </div>
         </motion.div>
 
