@@ -8,6 +8,8 @@ import ExperienceEducation from './Pages/ExperienceEducation';
 import Contactpage from "./Pages/ContactPage";
 import Navbar from './Component/Navbar';
 
+//New change
+
 const Home = () => {
   return (
     <div className=''>
