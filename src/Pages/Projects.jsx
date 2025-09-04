@@ -27,10 +27,7 @@ const allProjects = [
   },
   {
     id: 3,
-    title: "Weather App",
     description: "Interactive weather application with forecasts and historical data.",
-    image: "https://images.unsplash.com/photo-1605721911519-3dfeb3be25e7?auto=format&fit=crop&w=1600&q=80",
-    github: "",
     live: "http://127.0.0.1:5500/index.html",
     type: "frontend",
     tech: ["React", "API"],
