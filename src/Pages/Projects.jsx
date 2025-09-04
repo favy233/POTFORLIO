@@ -76,6 +76,7 @@ const Projects = () => {
           viewport={{ once: true, amount: 0.5 }}
           className="text-center mb-12"
         >
+          {/* project line */}
           <h2 className="text-4xl sm:text-5xl font-extrabold mb-6 leading-tight">
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-600">
               Projects
