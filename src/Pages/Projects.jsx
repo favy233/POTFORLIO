@@ -13,25 +13,23 @@ const allProjects = [
     github: "https://github.com/favy233/emotion.git",
     live: "https://emotion-rlpk.vercel.app/",
     tech: ["React", "Firebase", "Tailwind"],
-    features: ["Cart system", "Checkout flow", "Admin Dashboard"],
   },
   {
     id: 2,
     title: "Lastly",
     description: "Collaborative task manager with real-time updates and team features.",
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1600&q=80",
+    image: "/public/das3.png",
     github: "https://github.com/favy233/lastly.git",
     live: "https://lastly-kohl.vercel.app/",
-    tech: ["Next.js", "Node.js", "MongoDB"],
-    features: ["Team collaboration", "Real-time sync", "Task management"],
+     tech: ["React", "Firebase", "Tailwind"],
   },
   {
     id: 3,
-    description: "Interactive weather application with forecasts and historical data.",
-    live: "http://127.0.0.1:5500/index.html",
+    description: "It is a tech book clube, where user come together to study.",
+     image: "/public/Capture.PNG",
+    live: "https://cook-book-tau.vercel.app/",
     type: "frontend",
-    tech: ["React", "API"],
-    features: ["Live forecasts", "Historical trends", "Interactive charts"],
+     tech: ["Html", "css"],
   },
  
  
@@ -152,12 +150,6 @@ const Projects = () => {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-gray-900/70 via-transparent to-transparent" />
                   
-                  {isValidUrl(project.live) && (
-                    <span className="absolute top-3 left-3 bg-green-600 text-white text-xs font-semibold px-2.5 py-1 rounded-full shadow-md z-10">
-                      Live
-                    </span>
-                  )}
-                  
                   <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <div className="flex gap-6">
                       {isValidUrl(project.github) && (
@@ -181,7 +173,7 @@ const Projects = () => {
                           whileHover={{ scale: 1.1, color: "#34d399" }}
                         >
                           <FaExternalLinkAlt className="text-3xl" />
-                          <span className="text-xs font-medium">Demo</span>
+                          <span className="text-xs font-medium">Live</span>
                         </motion.a>
                       )}
                     </div>
@@ -211,17 +203,6 @@ const Projects = () => {
                       )}
                     </div>
                   </div>
-                  <motion.button
-                    onClick={() => alert(`Full details for ${project.title}: \n\n${project.longDescription ?? "No details available"}\n\nFeatures:\n- ${project.features.join('\n- ')}`)}
-                    className="mt-auto px-3 py-1.5 bg-gray-700 hover:bg-gray-600 text-white rounded-md shadow transition-all duration-300 text-xs font-medium self-start flex items-center gap-1"
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    Details
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </motion.button>
                 </div>
               </motion.div>
             ))
