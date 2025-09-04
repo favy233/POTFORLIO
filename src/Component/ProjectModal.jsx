@@ -1,9 +1,23 @@
 import React from 'react';
 import { motion } from "framer-motion";
 import { FaTimes, FaGithub, FaExternalLinkAlt } from "react-icons/fa";
+import Project1 from "../assets/project1.PNG";
+import Project2 from "../assets/project2.Png";
+import Project3 from "../assets/project3.Png";
 
 const ProjectModal = ({ project, onClose }) => {
   if (!project) return null;
+  const getProjectImage = (project) => {
+    // Map project IDs or titles to imported images
+    const imageMap = {
+      'project-1': Project1,
+      'project-2': Project2,
+      'project-3': Project3,
+    };
+    
+    // Return the specific image or default if not found
+    return imageMap[project.id] || DefaultImage;
+  };
 
   return (
     <motion.div
@@ -26,10 +40,9 @@ const ProjectModal = ({ project, onClose }) => {
           <FaTimes />
         </button>
         <img
-          src={project.image}
+          src={getProjectImage(project)}
           alt={project.title}
           className="w-full h-64 object-cover rounded-md mb-6"
-          onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/600x400/0A0A0A/FFFFFF?text=Project+Image'; }}
         />
         <h3 className="text-3xl font-bold mb-3 text-purple-400">
           {project.title}

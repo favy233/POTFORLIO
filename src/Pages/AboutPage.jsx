@@ -8,6 +8,9 @@ import {
   FaChevronUp,
 } from "react-icons/fa";
 
+// Import the image
+import my_self from "../assets/my_self.png";
+
 function AboutPage() {
   const [showFullText, setShowFullText] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
@@ -130,12 +133,13 @@ function AboutPage() {
         >
           <div className="relative">
             <img
-              src="/src/assets/my_self-removebg-preview.png"
+              src={my_self}
               alt="Silas Favour Chinelo - Web Developer"
               className="w-full h-auto rounded-2xl shadow-xl border border-gray-700 transform transition-transform duration-500 hover:scale-105"
               onError={(e) => {
                 e.target.onerror = null;
-                e.target.src = "/my_self-removebg-preview.png";
+                // Fallback to a placeholder if the imported image fails
+                e.target.src = "https://placehold.co/600x800/1f2937/ffffff?text=Silas+Favour+Chinelo";
               }}
             />
 

@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from 'react';
+// import { useNavigate } from 'react-router-dom';
 import { FaTwitter, FaGithub, FaLinkedin } from "react-icons/fa";
+
+// Import the image
+import my_self from "../assets/my_self.png";
 
 function HomePage() {
   const [isVisible, setIsVisible] = useState(false);
@@ -7,9 +11,8 @@ function HomePage() {
   const [roleIndex, setRoleIndex] = useState(0);
   const [charIndex, setCharIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
-  
 
-  const roles = ["Web Developer", "Frontend Developer", "React "];
+  const roles = ["Web Developer", "Frontend Developer", "React Developer"];
 
   // Typewriter effect
   useEffect(() => {
@@ -34,7 +37,7 @@ function HomePage() {
     }, typingSpeed);
 
     return () => clearTimeout(timeout);
-  }, [charIndex, isDeleting, roleIndex]);
+  }, [charIndex, isDeleting, roleIndex, roles]);
 
   // Fade-in effect
   useEffect(() => {
@@ -63,10 +66,13 @@ function HomePage() {
         >
           <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full animate-pulse opacity-80"></div>
           <img
-            src="/src/assets/my_self-removebg-preview.png"
+            src={my_self}
             alt="Silas Favour Chinelo smiling portrait"
             className="relative z-10 w-full h-full object-cover rounded-full border-4 border-blue-400 shadow-xl transform transition-transform duration-500 hover:scale-105"
-            onError={(e) => { e.target.onerror = null; e.target.src = '/fallback-avatar.png'; }}
+            onError={(e) => { 
+              e.target.onerror = null; 
+              e.target.src = 'https://placehold.co/600x600/1f2937/ffffff?text=Silas+Favour+Chinelo'; 
+            }}
           />
         </div>
 

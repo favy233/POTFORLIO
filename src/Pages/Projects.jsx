@@ -1,7 +1,12 @@
 import React, { useState, useMemo } from 'react';
 import { motion } from "framer-motion";
 import { FaGithub, FaExternalLinkAlt, FaServer } from "react-icons/fa";
-import { SiTypescript, SiReact, SiNextdotjs, SiNodedotjs, SiFirebase, SiTailwindcss, SiGraphql, SiMongodb } from "react-icons/si";
+
+// Import project images
+import Project1 from "../assets/Project1.png";
+import Project2 from "../assets/Project2.png";
+import Project3 from "../assets/Project3.png";
+
 
 // Project data
 const allProjects = [
@@ -9,30 +14,32 @@ const allProjects = [
     id: 1,
     title: "Emosence",
     description: "Full-featured online store with cart, checkout, and admin dashboard.",
-    image: "/public/ChatGPT Image Jun 30, 2025, 04_44_32 AM.png",
+    image: Project3,
     github: "https://github.com/favy233/emotion.git",
     live: "https://emotion-rlpk.vercel.app/",
     tech: ["React", "Firebase", "Tailwind"],
+    type: "frontend",
   },
   {
     id: 2,
     title: "Lastly",
     description: "Collaborative task manager with real-time updates and team features.",
-    image: "/public/das3.png",
+    image: Project2,
     github: "https://github.com/favy233/lastly.git",
     live: "https://lastly-kohl.vercel.app/",
-     tech: ["React", "Firebase", "Tailwind"],
+    tech: ["React", "Firebase", "Tailwind"],
+    type: "frontend",
   },
   {
     id: 3,
-    description: "It is a tech book clube, where user come together to study.",
-     image: "/public/Capture.PNG",
+    title: "Cook Book",
+    description: "It is a tech book club, where users come together to study.",
+    image: Project1,
+    github: "#",
     live: "https://cook-book-tau.vercel.app/",
+    tech: ["HTML", "CSS"],
     type: "frontend",
-     tech: ["Html", "css"],
   },
- 
- 
 ];
 
 const Projects = () => {
@@ -146,14 +153,14 @@ const Projects = () => {
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     onError={(e) => {
                       e.target.onerror = null;
-                      e.target.src = "https://placehold.co/600x400?text=Project+Image";
+                      e.target.src = DefaultProjectImage;
                     }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-gray-900/70 via-transparent to-transparent" />
                   
                   <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <div className="flex gap-6">
-                      {isValidUrl(project.github) && (
+                      {isValidUrl(project.github) && project.github !== "#" && (
                         <motion.a
                           href={project.github}
                           target="_blank"
@@ -165,7 +172,7 @@ const Projects = () => {
                           <span className="text-xs font-medium">Code</span>
                         </motion.a>
                       )}
-                      {isValidUrl(project.live) && (
+                      {isValidUrl(project.live) && project.live !== "#" && (
                         <motion.a
                           href={project.live}
                           target="_blank"
