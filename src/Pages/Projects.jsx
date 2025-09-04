@@ -6,7 +6,7 @@ import Project2 from "../assets/Project2.png";
 import Project3 from "../assets/Project3.png";
 
 
-// Project data
+
 const allProjects = [
   {
     id: 1,
