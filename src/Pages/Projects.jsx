@@ -5,6 +5,7 @@ import Project1 from "../assets/Project1.png";
 import Project2 from "../assets/Project2.png";
 import Project3 from "../assets/Project3.png";
 
+//New changes
 
 
 const allProjects = [
