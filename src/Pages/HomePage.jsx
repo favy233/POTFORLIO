@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { FaTwitter, FaGithub, FaLinkedin } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
 
 function HomePage() {
   const [isVisible, setIsVisible] = useState(false);
